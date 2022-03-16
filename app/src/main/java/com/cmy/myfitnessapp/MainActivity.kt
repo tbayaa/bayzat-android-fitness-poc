@@ -110,6 +110,7 @@ class MainActivity : AppCompatActivity() {
                                 //TODO return it
                                 val averageHeartRate =
                                     intervals.sumOf { it.first.toDouble() * it.second } / intervals.sumOf { it.first }
+                                print(averageHeartRate)
                             } else {
                                 //TODO return it
                                 val averageHeartRate = initialHeartRate
@@ -199,12 +200,10 @@ class MainActivity : AppCompatActivity() {
         Fitness.getHistoryClient(this, googleAccount)
             .readData(historyReadRequest)
             .addOnSuccessListener { response ->
-                val flatMap = response.buckets
+                val dailyStepDataPoints = response.buckets
                     .flatMap { it.dataSets }
                     .flatMap { it.dataPoints }
-                val totalSteps = flatMap
-                    .sumBy { it.getValue(Field.FIELD_STEPS).asInt() }
-                print("")
+                print(dailyStepDataPoints)
             }
     }
 
